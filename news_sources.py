@@ -14,7 +14,11 @@ def fetch_news():
 
     for source, url in SOURCES.items():
         try:
-            resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
+            resp = requests.get(
+                url,
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=10
+            )
             root = ET.fromstring(resp.content)
 
             for item in root.findall(".//item")[:15]:
@@ -24,7 +28,7 @@ def fetch_news():
                     "published": item.findtext("pubDate", ""),
                     "source": source
                 })
-        except:
+        except Exception:
             continue
 
-    return articlesnews_sources.py
+    return articles
